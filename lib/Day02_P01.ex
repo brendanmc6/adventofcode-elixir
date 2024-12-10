@@ -1,6 +1,4 @@
 defmodule Day02_P01 do
-  require Logger
-
   @behaviour Common.Solver
 
   @type level :: integer()
