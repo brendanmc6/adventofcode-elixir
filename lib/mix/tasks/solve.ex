@@ -10,14 +10,23 @@ defmodule Mix.Tasks.Solve do
     end
   end
 
+  def write(value, path) do
+    Mix.shell().info("Writing solution to #{path} \n Solution is: #{value}")
+    File.write(path, Integer.to_string(value))
+  end
+
+  @doc "Abstracts the read, stream and write logic for each solver"
   @impl Mix.Task
   @spec run([String.t()]) :: :ok
   def run([day, puzzle]) when valid_args(day, puzzle) do
     slug = "Day#{day}_P#{puzzle}"
-    module_name = Module.concat([slug])
-    puzzle_input_path = "inputs/#{slug}_input.txt"
-    puzzle_output_path = "solutions/#{slug}_solution.txt"
-    apply(module_name, :solve, [puzzle_input_path, puzzle_output_path])
+    solver = Module.concat([slug])
+
+    File.stream!("inputs/#{slug}_input.txt")
+    |> Enum.map(&solver.parse/1)
+    |> solver.solve()
+    |> write("solutions/#{slug}_solution.txt")
+
     Mix.shell().info("Task complete.")
     :ok
   end

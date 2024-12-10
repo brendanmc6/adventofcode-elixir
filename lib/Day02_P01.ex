@@ -1,4 +1,4 @@
-defmodule Day01_P02 do
+defmodule Day02_P01 do
   @behaviour Common.Solver
 
   @type int_list :: [integer()]

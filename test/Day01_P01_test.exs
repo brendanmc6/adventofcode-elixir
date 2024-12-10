@@ -2,10 +2,10 @@ defmodule Day01_P01.Test do
   use ExUnit.Case
   import Day01_P01
 
-  test "parse_line" do
-    assert parse_line("123   456\n") == {123, 456}
+  test "parse" do
+    assert parse("123   456\n") == {123, 456}
 
-    parsedList = Enum.map(["123   123\n", "456   456\n"], &parse_line/1)
+    parsedList = Enum.map(["123   123\n", "456   456\n"], &parse/1)
     assert parsedList == [{123, 123}, {456, 456}]
   end
 
@@ -26,9 +26,9 @@ defmodule Day01_P01.Test do
     assert add_distance([99, 100], 99) == 100
   end
 
-  test "compute" do
-    assert compute([{1, 1}, {2, 2}, {3, 3}]) == 0
-    assert compute([{1, 1}, {2, 2}, {3, 4}]) == 1
-    assert compute([{1, 2}, {2, 3}, {3, 4}]) == 3
+  test "solve" do
+    assert solve([{1, 1}, {2, 2}, {3, 3}]) == 0
+    assert solve([{1, 1}, {2, 2}, {3, 4}]) == 1
+    assert solve([{1, 2}, {2, 3}, {3, 4}]) == 3
   end
 end
