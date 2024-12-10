@@ -22,7 +22,7 @@ defmodule Mix.Tasks.Solve do
     slug = "Day#{day}_P#{puzzle}"
     solver = Module.concat([slug])
 
-    File.stream!("inputs/#{slug}_input.txt")
+    File.stream!("inputs/Day#{day}_input.txt")
     |> Enum.map(&solver.parse/1)
     |> solver.solve()
     |> write("solutions/#{slug}_solution.txt")
