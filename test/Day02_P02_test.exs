@@ -2,8 +2,8 @@ defmodule Day02_P02.Test do
   use ExUnit.Case
   import Day02_P02
 
-  test "parse" do
-    assert parse("9 12 14 16 17 18 15\n") == [9, 12, 14, 16, 17, 18, 15]
+  test "parse_line" do
+    assert parse_line("9 12 14 16 17 18 15\n") == [9, 12, 14, 16, 17, 18, 15]
   end
 
   test "diff" do

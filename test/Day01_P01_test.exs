@@ -2,10 +2,10 @@ defmodule Day01_P01.Test do
   use ExUnit.Case
   import Day01_P01
 
-  test "parse" do
-    assert parse("123   456\n") == {123, 456}
+  test "parse_line" do
+    assert parse_line("123   456\n") == {123, 456}
 
-    parsedList = Enum.map(["123   123\n", "456   456\n"], &parse/1)
+    parsedList = Enum.map(["123   123\n", "456   456\n"], &parse_line/1)
     assert parsedList == [{123, 123}, {456, 456}]
   end
 

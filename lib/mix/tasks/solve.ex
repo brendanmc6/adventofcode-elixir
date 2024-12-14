@@ -23,8 +23,8 @@ defmodule Mix.Tasks.Solve do
   def solve(day, puzzle) do
     solver = load_solver(day, puzzle)
 
-    File.stream!("inputs/Day#{day}_input.txt")
-    |> Enum.map(&solver.parse/1)
+    solver.read("inputs/Day#{day}_input.txt")
+    |> solver.parse()
     |> solver.solve()
   end
 

@@ -18,14 +18,26 @@ defmodule Day03_P01 do
     {String.to_integer(a), String.to_integer(b)}
   end
 
+  @spec read(String.t()) :: [String.t()]
+  def read(path) do
+    File.stream!(path)
+    |> Enum.map(& &1)
+  end
+
   @doc """
   Split on "mul(" to get a list of strings like `["123,456)!@#!@#1", "!@$!@$"]`
   """
-  @spec parse(String.t()) :: string_list()
-  def parse(line) do
+  @spec parse_line(String.t()) :: string_list()
+  def parse_line(line) do
     line
     |> String.trim()
     |> String.split("mul(")
+  end
+
+  @spec parse(String.t()) :: puzzle_input
+  def parse(lines) do
+    lines
+    |> Enum.map(&parse_line/1)
   end
 
   @spec solve(puzzle_input) :: integer()

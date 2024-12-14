@@ -18,6 +18,12 @@ defmodule Day03_P02 do
     {String.to_integer(a), String.to_integer(b)}
   end
 
+  @spec read(String.t()) :: [String.t()]
+  def read(path) do
+    File.stream!(path)
+    |> Enum.map(& &1)
+  end
+
   @doc """
   Split on "don't()" to get a list of strings like `["mul(5,5)+mu", "do()?mul(8,5))"]`
   """

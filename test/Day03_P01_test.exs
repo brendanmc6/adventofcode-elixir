@@ -15,13 +15,14 @@ defmodule Day03_P01.Test do
     assert extract_integers("123,456)123") == {123, 456}
   end
 
-  test "parse" do
-    assert parse("mul(427,266)#mul(287,390)mul(398,319)#!$>don't()mul(613,600)from()@!\n") == [
-             "",
-             "427,266)#",
-             "287,390)",
-             "398,319)#!$>don't()",
-             "613,600)from()@!"
-           ]
+  test "parse_line" do
+    assert parse_line("mul(427,266)#mul(287,390)mul(398,319)#!$>don't()mul(613,600)from()@!\n") ==
+             [
+               "",
+               "427,266)#",
+               "287,390)",
+               "398,319)#!$>don't()",
+               "613,600)from()@!"
+             ]
   end
 end

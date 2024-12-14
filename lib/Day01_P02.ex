@@ -28,17 +28,24 @@ defmodule Day01_P02 do
     number * count_left * count_right + acc_int
   end
 
-  @doc """
-  Given line of input.txt "123 456\n"
-  Returns a tuple of integers {123, 456}
-  """
-  @spec parse(String.t()) :: int_tuple
-  def parse(line) do
+  @spec read(String.t()) :: [String.t()]
+  def read(path) do
+    File.stream!(path)
+    |> Enum.map(& &1)
+  end
+
+  def parse_line(line) do
     line
     |> String.trim()
     |> String.split("   ")
     |> Enum.map(&String.to_integer/1)
     |> List.to_tuple()
+  end
+
+  @spec parse([String.t()]) :: puzzle_input
+  def parse(lines) do
+    lines
+    |> Enum.map(&parse_line/1)
   end
 
   @spec solve(puzzle_input) :: integer()

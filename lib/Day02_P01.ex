@@ -8,18 +8,6 @@ defmodule Day02_P01 do
   @min_diff 1
   @max_diff 3
 
-  @doc """
-  Given line of input.txt "9 12 14 16 17 18 15\n"
-  Returns a list of integers [9, 12, 14, ...]
-  """
-  @spec parse(String.t()) :: report
-  def parse(line) do
-    line
-    |> String.trim()
-    |> String.split(" ")
-    |> Enum.map(&String.to_integer/1)
-  end
-
   def valid_diff(diff), do: diff <= @max_diff && diff >= @min_diff
 
   def diff(a, b, :increment), do: b - a
@@ -46,6 +34,24 @@ defmodule Day02_P01 do
       [a, b | _] when a < b -> compare(report, :increment)
       [a, b | _] when a > b -> compare(report, :decrement)
     end
+  end
+
+  @spec read(String.t()) :: [String.t()]
+  def read(path) do
+    File.stream!(path)
+    |> Enum.map(& &1)
+  end
+
+  @doc """
+  Given line of input.txt "9 12 14 16 17 18 15\n"
+  Returns a list of integers [9, 12, 14, ...]
+  """
+  @spec parse(String.t()) :: puzzle_input
+  def parse(lines) do
+    lines
+    |> Enum.map(&String.trim/1)
+    |> Enum.map(&String.split/1)
+    |> Enum.map(fn l -> Enum.map(l, &String.to_integer/1) end)
   end
 
   @spec solve(puzzle_input) :: integer()

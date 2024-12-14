@@ -3,7 +3,7 @@ defmodule Day02_P01.Test do
   import Day02_P01
 
   test "parse" do
-    assert parse("9 12 14 16 17 18 15\n") == [9, 12, 14, 16, 17, 18, 15]
+    assert parse(["9 12 14 16 17 18 15\n"]) == [[9, 12, 14, 16, 17, 18, 15]]
   end
 
   test "diff" do

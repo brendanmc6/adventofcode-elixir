@@ -30,14 +30,26 @@ defmodule Day01_P01 do
     abs(l - r) + acc
   end
 
+  @spec read(String.t()) :: [String.t()]
+  def read(path) do
+    File.stream!(path)
+    |> Enum.map(& &1)
+  end
+
   @doc "Parse a single line of input from *_input.txt"
-  @spec parse(String.t()) :: parsed_input_line
-  def parse(line) do
+  @spec parse_line(String.t()) :: parsed_input_line
+  def parse_line(line) do
     line
     |> String.trim()
     |> String.split("   ")
     |> Enum.map(&String.to_integer/1)
     |> List.to_tuple()
+  end
+
+  @spec parse([String.t()]) :: puzzle_input
+  def parse(lines) do
+    lines
+    |> Enum.map(&parse_line/1)
   end
 
   @spec solve(puzzle_input) :: integer()
