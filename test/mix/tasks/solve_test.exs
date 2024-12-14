@@ -15,4 +15,31 @@ defmodule Mix.Tasks.Solve.Test do
       refute valid_args("01", 2) == true
     end
   end
+
+  # Hardcode solutions so that we can confidently refactor without breaking prior implementations
+  describe "solutions" do
+    test "Day01_P01" do
+      assert solve("01", "01") == 1_223_326
+    end
+
+    test "Day01_P02" do
+      assert solve("01", "02") == 21_070_419
+    end
+
+    test "Day02_P01" do
+      assert solve("02", "01") == 510
+    end
+
+    test "Day02_P02" do
+      assert solve("02", "02") == 553
+    end
+
+    test "Day03_P01" do
+      assert solve("03", "01") == 189_527_826
+    end
+
+    test "Day03_P02" do
+      assert solve("03", "02") == 63_013_756
+    end
+  end
 end

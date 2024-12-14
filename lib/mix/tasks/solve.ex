@@ -15,19 +15,27 @@ defmodule Mix.Tasks.Solve do
     File.write(path, Integer.to_string(value))
   end
 
-  @doc "Abstracts the read, stream and write logic for each solver"
-  @impl Mix.Task
-  @spec run([String.t()]) :: :ok
-  def run([day, puzzle]) when valid_args(day, puzzle) do
+  def load_solver(day, puzzle) do
     slug = "Day#{day}_P#{puzzle}"
-    solver = Module.concat([slug])
+    Module.concat([slug])
+  end
+
+  def solve(day, puzzle) do
+    solver = load_solver(day, puzzle)
 
     File.stream!("inputs/Day#{day}_input.txt")
     |> Enum.map(&solver.parse/1)
     |> solver.solve()
-    |> write("solutions/#{slug}_solution.txt")
+  end
 
-    Mix.shell().info("Task complete.")
+  @doc "Abstracts the read, stream and write logic for each solver"
+  @impl Mix.Task
+  @spec run([String.t()]) :: :ok
+  def run([day, puzzle]) when valid_args(day, puzzle) do
+    solve(day, puzzle)
+    |> write("solutions/Day#{day}_P#{puzzle}_solution.txt")
+
+    Mix.shell().info("Finished.")
     :ok
   end
 

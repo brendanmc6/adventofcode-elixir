@@ -63,7 +63,7 @@ defmodule Day02_P02 do
 
   def retry_report({1, _i, _r}), do: 1
 
-  # with clause is neat, if pattern does not match it passes the mismatch to `else`
+  # `with` clause is neat, if pattern does not match it passes the mismatch to `else`
   # here we try 3 different strategies for removing the item at report[index] and retrying
   # when a report is succesfully retried, we return 1
   def retry_report({0, index, report}) do
