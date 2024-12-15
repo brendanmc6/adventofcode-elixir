@@ -1,5 +1,4 @@
 defmodule Day03_P02 do
-  require Logger
   @behaviour Common.Solver
 
   @prefix_regex ~r/^\d+,\d+\)/

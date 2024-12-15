@@ -1,4 +1,7 @@
 {
-    "editor.defaultFormatter": "JakeBecker.elixir-ls",
-    "editor.formatOnSave": true
+  "editor.defaultFormatter": "JakeBecker.elixir-ls",
+  "editor.formatOnSave": true,
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
