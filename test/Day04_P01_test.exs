@@ -81,7 +81,6 @@ defmodule Day04_P01.Test do
     assert solve(parse(input2)) == 8
   end
 
-  @tag :isolate
   test "solve_example" do
     input3 = [
       "....XXMAS.",
