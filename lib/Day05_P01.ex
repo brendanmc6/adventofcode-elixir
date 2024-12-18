@@ -10,7 +10,7 @@ defmodule Day05_P01 do
 
   @doc """
   Filters the input.txt into two lists of strings.
-  Since the first half of the input is rules `12|34` and the second half is inputs `1,2,3,4`
+  Since the first half of the input is rule-strings `"12|34"` and the second half is list-strings `"1,2,3,4"`
   Returns {rules, inputs}
   """
   def read(path) do
