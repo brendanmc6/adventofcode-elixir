@@ -8,6 +8,11 @@ defmodule Day05_P01 do
   def reduce_input(str, acc) when byte_size(str) == 0, do: acc
   def reduce_input(str, {r, i}), do: {r, [str | i]}
 
+  @doc """
+  Filters the input.txt into two lists of strings.
+  Since the first half of the input is rules `12|34` and the second half is inputs `1,2,3,4`
+  Returns {rules, inputs}
+  """
   def read(path) do
     File.stream!(path)
     |> Enum.map(&String.trim/1)
@@ -27,6 +32,13 @@ defmodule Day05_P01 do
     |> Map.update(r, [rule], &[rule | &1])
   end
 
+  @doc """
+  Assigns rules to a map of lists of tuples.
+  %{ 1 => [{1,2}, {2,1}]}
+
+  Assigns inputs to a list of lists of integers.
+  [[1,2,3,4],[1,2,3,4]]
+  """
   def parse({rules, inputs}) do
     rules_map =
       rules
