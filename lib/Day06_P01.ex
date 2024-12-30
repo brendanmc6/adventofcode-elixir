@@ -1,11 +1,10 @@
-defmodule Cell do
+defmodule Day06_P01.Cell do
   defstruct coord: {0, 0}, can_visit: true, visited: 0
   @type coord :: {integer(), integer()}
   @type t :: %__MODULE__{coord: coord(), can_visit: boolean(), visited: integer()}
 end
 
-# Grid module name clash
-defmodule Grd do
+defmodule Day06_P01.Grid do
   def visit(grid, coord) do
     Map.update!(grid, coord, fn cell -> %{cell | visited: 1} end)
   end
@@ -16,6 +15,8 @@ defmodule Grd do
 end
 
 defmodule Day06_P01 do
+  alias Day06_P01.Grid
+  alias Day06_P01.Cell
   @behaviour Common.Solver
 
   @type vector :: {integer(), integer()}
@@ -39,20 +40,20 @@ defmodule Day06_P01 do
 
   # base case, edge reached, end
   def visit_cell(_vector, cell, next_cell, grid) when next_cell == nil do
-    Grd.visit(grid, cell.coord)
+    Grid.visit(grid, cell.coord)
   end
 
   # rotate case
   def visit_cell(vector, cell, next_cell, grid) when next_cell.can_visit == false do
     new_vector = rotate(vector)
-    alt_next_cell = Grd.get(grid, next_coord(new_vector, cell.coord))
+    alt_next_cell = Grid.get(grid, next_coord(new_vector, cell.coord))
     visit_cell(new_vector, cell, alt_next_cell, grid)
   end
 
   # walk case
   def visit_cell(vector, cell, next_cell, grid) when next_cell.can_visit == true do
-    new_grid = Grd.visit(grid, cell.coord)
-    next_next_cell = Grd.get(new_grid, next_coord(vector, next_cell.coord))
+    new_grid = Grid.visit(grid, cell.coord)
+    next_next_cell = Grid.get(new_grid, next_coord(vector, next_cell.coord))
     visit_cell(vector, next_cell, next_next_cell, new_grid)
   end
 
@@ -98,8 +99,8 @@ defmodule Day06_P01 do
   end
 
   def solve({start_coord, grid}) do
-    start_cell = Grd.get(grid, start_coord)
-    next_cell = Grd.get(grid, next_coord(@north, start_coord))
+    start_cell = Grid.get(grid, start_coord)
+    next_cell = Grid.get(grid, next_coord(@north, start_coord))
     # I already know the start and next cell is walkable, and the vector is north
     visit_cell(@north, start_cell, next_cell, grid)
     |> Map.values()

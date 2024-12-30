@@ -1,4 +1,5 @@
 defmodule Day04_P02 do
+  alias Day04_P01.Grid
   @type rows_list :: [String.t()]
   @type puzzle_input :: Grid.t()
   @type coord :: {integer(), integer()}

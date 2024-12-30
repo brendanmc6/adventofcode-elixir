@@ -1,10 +1,11 @@
-defmodule Grid do
+defmodule Day04_P01.Grid do
   defstruct map: %{}, max_x: 0, max_y: 0, count: 0
 
   @type t :: %__MODULE__{map: map(), max_x: integer(), max_y: integer(), count: integer()}
 end
 
 defmodule Day04_P01 do
+  alias Day04_P01.Grid
   @type rows_list :: [String.t()]
   @type puzzle_input :: Grid.t()
   @type coord :: {integer(), integer()}
