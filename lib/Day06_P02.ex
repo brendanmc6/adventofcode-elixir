@@ -17,15 +17,15 @@ defmodule Day06_P02.Grid do
   alias Day06_P02.Cell
 
   def visit(grid, coord, vector) do
-    if MapSet.member?(grid[coord].visit_vectors, vector) do
-      raise(ErrorDuplicate)
-    else
-      Map.update!(
-        grid,
-        coord,
-        &%{&1 | visit_vectors: MapSet.put(&1.visit_vectors, vector)}
-      )
-    end
+    Map.update!(grid, coord, fn cell ->
+      vectors = cell.visit_vectors
+
+      if MapSet.member?(vectors, vector) do
+        raise(ErrorDuplicate)
+      else
+        %Cell{cell | visit_vectors: MapSet.put(vectors, vector)}
+      end
+    end)
   end
 
   def obstruct(grid, coord) do
