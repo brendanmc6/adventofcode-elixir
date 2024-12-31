@@ -32,10 +32,16 @@ defmodule Mix.Tasks.Solve do
   @impl Mix.Task
   @spec run([String.t()]) :: :ok
   def run([day, puzzle]) when valid_args(day, puzzle) do
-    solve(day, puzzle)
-    |> write("solutions/Day#{day}_P#{puzzle}_solution.txt")
+    start_time = :os.system_time(:millisecond)
 
-    Mix.shell().info("Finished.")
+    solution = solve(day, puzzle)
+
+    end_time =
+      :os.system_time(:millisecond)
+
+    write(solution, "solutions/Day#{day}_P#{puzzle}_solution.txt")
+
+    Mix.shell().info("Finished in #{end_time - start_time} ms")
     :ok
   end
 
