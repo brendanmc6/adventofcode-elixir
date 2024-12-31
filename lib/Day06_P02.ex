@@ -5,11 +5,11 @@ end
 defmodule Day06_P02.Cell do
   defstruct coord: {0, 0}, can_visit: true, visit_vectors: MapSet.new()
   @type coord :: {integer(), integer()}
-  @type vector :: {integer(), integer()}
+  @type vectorat :: atom()
   @type t :: %__MODULE__{
           coord: coord(),
           can_visit: boolean(),
-          visit_vectors: MapSet.t([vector()])
+          visit_vectors: MapSet.t([vectorat()])
         }
 end
 
@@ -51,21 +51,26 @@ defmodule Day06_P02 do
   @type vector :: {integer(), integer()}
   @type grid :: %{required(Cell.coord()) => Cell.t()}
 
-  @north {0, -1}
-  @east {1, 0}
-  @south {0, 1}
-  @west {-1, 0}
-
   @rotations %{
-    @north => @east,
-    @east => @south,
-    @south => @west,
-    @west => @north
+    :n => :e,
+    :e => :s,
+    :s => :w,
+    :w => :n
+  }
+
+  @vectors %{
+    :n => {0, -1},
+    :e => {1, 0},
+    :s => {0, 1},
+    :w => {-1, 0}
   }
 
   def rotate(vector), do: @rotations[vector]
 
-  def next_coord({vx, vy}, {x, y}), do: {x + vx, y + vy}
+  def next_coord(vectorat, {x, y}) do
+    {vx, vy} = @vectors[vectorat]
+    {x + vx, y + vy}
+  end
 
   # base case, edge reached, end
   def visit_cell(vector, cell, nil, grid) do
@@ -151,10 +156,10 @@ defmodule Day06_P02 do
   # simulates the entire guard walk
   def infinite_loop?(grid, start_coord) do
     start_cell = Grid.get(grid, start_coord)
-    next_cell = Grid.get(grid, next_coord(@north, start_coord))
+    next_cell = Grid.get(grid, next_coord(:n, start_coord))
 
     try do
-      visit_cell(@north, start_cell, next_cell, grid)
+      visit_cell(:n, start_cell, next_cell, grid)
       false
     rescue
       _e in ErrorDuplicate -> true
@@ -184,9 +189,9 @@ defmodule Day06_P02 do
 
   def solve({start_coord, grid}) do
     start_cell = Grid.get(grid, start_coord)
-    next_cell = Grid.get(grid, next_coord(@north, start_coord))
+    next_cell = Grid.get(grid, next_coord(:n, start_coord))
 
-    walked_grid = visit_cell(@north, start_cell, next_cell, grid)
+    walked_grid = visit_cell(:n, start_cell, next_cell, grid)
 
     extract_candidates(walked_grid, start_coord)
     |> Enum.map(fn coord ->
