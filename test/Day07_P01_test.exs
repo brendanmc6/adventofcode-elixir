@@ -4,18 +4,18 @@ defmodule Day07_P01.Test do
 
   test "parse" do
     rowstr = "432832280199: 3 286 4 3 17 682 7 7 9 2"
-    out = {432_832_280_199, [3, 286, 4, 3, 17, 682, 7, 7, 9, 2]}
+    out = {432_832_280_199, {3, 286, 4, 3, 17, 682, 7, 7, 9, 2}}
     res = parse([rowstr, rowstr])
     assert res == [out, out]
   end
 
   test "solvable?" do
-    assert solvable?(11, [6, 16, 20], &Kernel.+/2, 292) == true
-    assert solvable?(11, [6, 16, 20], &Kernel.*/2, 292) == false
-    assert solvable?(11, [6, 16, 20], &Kernel.+/2, 293) == false
-    assert solvable?(10, [19], &Kernel.*/2, 190) == true
-    assert solvable?(81, [40, 27], &Kernel.*/2, 3267) == true
-    assert solvable?(81, [40, 27], &Kernel.+/2, 3267) == true
+    list1 = {11, 6, 16, 20}
+    list2 = {81, 40, 27}
+    assert solvable?(292, elem(list1, 0) + elem(list1, 1), 1, false, list1) == true
+    assert solvable?(292, elem(list1, 0) * elem(list1, 1), 1, false, list1) == false
+    assert solvable?(3267, elem(list2, 0) + elem(list2, 1), 1, false, list2) == true
+    assert solvable?(3267, elem(list2, 0) + elem(list2, 1), 1, false, list2) == true
   end
 
   test "solve" do

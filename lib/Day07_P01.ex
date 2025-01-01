@@ -18,39 +18,44 @@ defmodule Day07_P01 do
     |> Enum.map(&String.split(&1, ":", trim: true))
     |> Enum.map(fn [targ_str, rest_str] ->
       target = String.to_integer(targ_str)
-      ints = String.split(rest_str) |> Enum.map(&String.to_integer/1)
-      {target, ints}
+      list = String.split(rest_str) |> Enum.map(&String.to_integer/1) |> List.to_tuple()
+      {target, list, tuple_size(list) - 1}
     end)
   end
 
   # base case, end of list
-  def solvable?(acc, [n], op, target) do
-    op.(acc, n) == target
+  def solvable?(target, value, i, _list, end_i) when i == end_i do
+    value == target
   end
 
-  # Recurse case: proceed if < target and not end of list
-  def solvable?(acc, [n | rest], op, target) do
-    val = op.(acc, n)
+  # recurse case, not end of list, can still solve
+  def solvable?(target, value, i, list, end_i) when value < target do
+    next_i = i + 1
+    next_el = elem(list, next_i)
 
-    cond do
-      val > target ->
-        false
-
-      # can only be followed by multiplications of 1
-      val == target ->
-        solvable?(val, rest, &Kernel.*/2, target)
-
-      true ->
-        solvable?(val, rest, &Kernel.+/2, target) or solvable?(val, rest, &Kernel.*/2, target)
-    end
+    solvable?(target, value + next_el, next_i, list, end_i) or
+      solvable?(target, value * next_el, next_i, list, end_i)
   end
+
+  # recurse case, can only be solved with mul
+  def solvable?(target, value, i, list, end_i) when value == target do
+    next_i = i + 1
+    solvable?(target, value * elem(list, next_i), next_i, list, end_i)
+  end
+
+  # not solvable, target > value
+  def solvable?(_target, _value, _i, _list, _end_i), do: false
 
   @spec solve([input()]) :: integer()
   def solve(inputs) do
     inputs
-    |> Enum.filter(fn {target, [n | ints]} ->
-      solvable?(n, ints, &Kernel.+/2, target) or solvable?(n, ints, &Kernel.*/2, target)
+    |> Enum.filter(fn {target, list, end_i} ->
+      a = elem(list, 0)
+      b = elem(list, 1)
+
+      solvable?(target, a + b, 1, list, end_i) or
+        solvable?(target, a * b, 1, list, end_i)
     end)
-    |> Enum.reduce(0, fn {t, _ints}, acc -> acc + t end)
+    |> Enum.reduce(0, fn {t, _ints, _end_i}, acc -> acc + t end)
   end
 end
