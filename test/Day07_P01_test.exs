@@ -4,7 +4,7 @@ defmodule Day07_P01.Test do
 
   test "parse" do
     rowstr = "432832280199: 3 286 4 3 17 682 7 7 9 2"
-    out = {432_832_280_199, {3, 286, 4, 3, 17, 682, 7, 7, 9, 2}}
+    out = {432_832_280_199, {3, 286, 4, 3, 17, 682, 7, 7, 9, 2}, 9}
     res = parse([rowstr, rowstr])
     assert res == [out, out]
   end
@@ -12,10 +12,18 @@ defmodule Day07_P01.Test do
   test "solvable?" do
     list1 = {11, 6, 16, 20}
     list2 = {81, 40, 27}
-    assert solvable?(292, elem(list1, 0) + elem(list1, 1), 1, false, list1) == true
-    assert solvable?(292, elem(list1, 0) * elem(list1, 1), 1, false, list1) == false
-    assert solvable?(3267, elem(list2, 0) + elem(list2, 1), 1, false, list2) == true
-    assert solvable?(3267, elem(list2, 0) + elem(list2, 1), 1, false, list2) == true
+
+    assert solvable?(292, elem(list1, 0) + elem(list1, 1), 1, list1, tuple_size(list1) - 1) ==
+             true
+
+    assert solvable?(292, elem(list1, 0) * elem(list1, 1), 1, list1, tuple_size(list1) - 1) ==
+             false
+
+    assert solvable?(3267, elem(list2, 0) + elem(list2, 1), 1, list2, tuple_size(list2) - 1) ==
+             true
+
+    assert solvable?(3267, elem(list2, 0) + elem(list2, 1), 1, list2, tuple_size(list2) - 1) ==
+             true
   end
 
   test "solve" do
