@@ -21,7 +21,6 @@ defmodule Day10_P02.Test do
     assert length(trailheads) == 9
   end
 
-  @tag :isolate
   test "solve" do
     input = [
       "89010123",
