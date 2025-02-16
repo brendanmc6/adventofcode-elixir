@@ -44,7 +44,7 @@ defmodule Day12_P01 do
     end)
   end
 
-  # Enumuerates every coordinate in the region_map
+  # Enumerates every coordinate in the region_map
   # Counts unalike neighbors in all 4 cardinals (+1 perimeter)
   # And adds +1 to area
   # Assigns these to a map of %{ region_id => {perim_count, area_count} }
