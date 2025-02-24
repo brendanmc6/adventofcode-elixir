@@ -86,10 +86,6 @@ defmodule Day13_P01.Test do
     assert solutions === {80, 40}
   end
 
-  test "parse" do
-    assert true === true
-  end
-
   test "solve - example" do
     input = [
       {{94, 34}, {22, 67}, {8400, 5400}},
