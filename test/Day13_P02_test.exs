@@ -27,6 +27,6 @@ defmodule Day13_P02.Test do
       {{69, 23}, {27, 71}, {18641, 10279}}
     ]
 
-    assert solve(input) === 480
+    assert solve(input) === 875_318_608_908
   end
 end
