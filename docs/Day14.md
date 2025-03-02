@@ -34,3 +34,25 @@ third quad would be {0-49, 52-102}
 fourth quad would be {51-100, 52-102}
 
 Count the robots in each quadrant, multiply
+
+# Part 2
+
+For range of steps 1...1000
+Calculate final position of robots
+Check for 7 adjacent robots on the X axis
+If found, print the grid and the step count.
+If not found, continue.
+
+## Algo for quickly checking adjacency
+
+Push them to a map of lists
+
+```elixir
+%{
+  x_coord => [y1, y2, y3, y4]
+}
+```
+
+Scan for x_coords where `length(y_list) > n`
+
+Scan list for `n` adjacent elements
